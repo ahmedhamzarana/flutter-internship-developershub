@@ -14,7 +14,8 @@ class _LoginScreenState extends State<LoginScreen> {
   void formValidate() {
     String email = emailController.text;
     String password = passwordController.text;
-
+      final RegExp emailRegex =
+      RegExp(r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]+$");
     if (email.isEmpty || password.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
@@ -22,7 +23,15 @@ class _LoginScreenState extends State<LoginScreen> {
           backgroundColor: Colors.red,
         ),
       );
-    } else {
+    }else if(!emailRegex.hasMatch(email)){
+        ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text("Please enter a valid email"),
+          backgroundColor: Colors.red,
+        ),
+      );
+    } 
+    else {
       Navigator.push(
         context,
         MaterialPageRoute(builder: (context) => const HomeScreen()),
