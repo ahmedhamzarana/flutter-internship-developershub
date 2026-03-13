@@ -17,14 +17,14 @@ class SplashScreen extends StatelessWidget {
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
             stops: [0.1, 0.5],
-            colors: [Colors.white, Colors.grey],
+            colors: [Colors.blue, Colors.blueAccent],
           ),
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            // Container(width: 200, height: 200, child: Image.asset("logo.png")),
+            Text("Task Management", style: TextStyle(color: Colors.white,fontSize: 24,fontWeight: FontWeight.bold)),
           ],
         ),
       ),
