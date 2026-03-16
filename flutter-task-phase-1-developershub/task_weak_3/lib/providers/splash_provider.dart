@@ -5,7 +5,7 @@ class SplashProvider extends ChangeNotifier {
   void splashTimer(BuildContext context) {
     Future.delayed(
       Duration(seconds: 3),
-      () => Navigator.pushReplacementNamed(context , AppRoutes.homeRoute),
+      () => Navigator.pushReplacementNamed(context , AppRoutes.loginRoute),
     );
   }
 }
