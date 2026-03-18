@@ -10,7 +10,6 @@ import '../../utils/constants.dart';
 import '../../widgets/custom_button.dart';
 import '../../widgets/custom_text_field.dart';
 
-/// TaskScreen - Screen for adding or editing tasks
 class TaskScreen extends StatefulWidget {
   final String? taskId;
   final TaskModel? existingTask;
@@ -42,7 +41,7 @@ class _TaskScreenState extends State<TaskScreen> {
   void initState() {
     super.initState();
     _isEditMode = widget.existingTask != null;
-    
+
     if (_isEditMode && widget.existingTask != null) {
       _loadExistingTask(widget.existingTask!);
     }
@@ -110,7 +109,6 @@ class _TaskScreenState extends State<TaskScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            // Title Field
             CustomTextField(
               label: 'Task Title *',
               hint: 'Enter task title',
@@ -121,7 +119,6 @@ class _TaskScreenState extends State<TaskScreen> {
             ),
             const SizedBox(height: AppSpacing.lg),
 
-            // Description Field
             CustomTextField(
               label: 'Description',
               hint: 'Enter task description (optional)',
@@ -133,23 +130,18 @@ class _TaskScreenState extends State<TaskScreen> {
             ),
             const SizedBox(height: AppSpacing.lg),
 
-            // Date Picker
             _buildDatePicker(),
             const SizedBox(height: AppSpacing.lg),
 
-            // Time Picker
             _buildTimePicker(),
             const SizedBox(height: AppSpacing.lg),
 
-            // Priority Selector
             _buildPrioritySelector(),
             const SizedBox(height: AppSpacing.lg),
 
-            // Status Selector (only for edit mode)
             if (_isEditMode) _buildStatusSelector(),
             const SizedBox(height: AppSpacing.xl),
 
-            // Submit Button
             _buildSubmitButton(),
           ],
         ),
@@ -250,7 +242,7 @@ class _TaskScreenState extends State<TaskScreen> {
     required Color color,
   }) {
     final isSelected = _selectedPriority == priority;
-    
+
     return Expanded(
       child: InkWell(
         onTap: () {
@@ -383,7 +375,6 @@ class _TaskScreenState extends State<TaskScreen> {
       final authProvider = Provider.of<AuthProvider>(context, listen: false);
       final taskProvider = Provider.of<TaskProvider>(context, listen: false);
 
-      // Combine date and time
       final dueDateTime = DateTime(
         _selectedDate.year,
         _selectedDate.month,
@@ -395,7 +386,6 @@ class _TaskScreenState extends State<TaskScreen> {
       bool success;
 
       if (_isEditMode && widget.existingTask != null) {
-        // Update existing task
         final updatedTask = widget.existingTask!.copyWith(
           title: _titleController.text.trim(),
           description: _descriptionController.text.trim(),
@@ -408,7 +398,6 @@ class _TaskScreenState extends State<TaskScreen> {
 
         success = await taskProvider.updateTask(updatedTask);
       } else {
-        // Create new task
         success = await taskProvider.addTask(
           userId: authProvider.userId!,
           title: _titleController.text.trim(),

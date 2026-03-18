@@ -4,7 +4,6 @@ import '../../providers/auth_provider.dart';
 import '../../utils/app_routes.dart';
 import '../../utils/constants.dart';
 
-/// SplashScreen - Initial screen that checks authentication status
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
 
@@ -22,13 +21,11 @@ class _SplashScreenState extends State<SplashScreen>
   void initState() {
     super.initState();
     _initializeAnimations();
-    // Schedule app initialization after build completes
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _initializeApp();
     });
   }
 
-  /// Initialize animations for splash screen
   void _initializeAnimations() {
     _animationController = AnimationController(
       vsync: this,
@@ -52,25 +49,18 @@ class _SplashScreenState extends State<SplashScreen>
     _animationController.forward();
   }
 
-  /// Initialize app and check authentication
   Future<void> _initializeApp() async {
-    // Get auth provider
     final authProvider = Provider.of<AuthProvider>(context, listen: false);
 
-    // Initialize auth (check secure storage)
     await authProvider.initialize();
 
-    // Wait for animations
     await Future.delayed(const Duration(milliseconds: 2000));
 
     if (!mounted) return;
 
-    // Navigate based on auth status
     if (authProvider.isLoggedIn) {
-      // User is logged in, go to home
       NavigationHelper.goToHome(context);
     } else {
-      // User is not logged in, go to login
       NavigationHelper.goToLogin(context);
     }
   }
@@ -100,7 +90,6 @@ class _SplashScreenState extends State<SplashScreen>
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        // App Logo/Icon
                         Container(
                           padding: const EdgeInsets.all(24),
                           decoration: BoxDecoration(
@@ -121,8 +110,7 @@ class _SplashScreenState extends State<SplashScreen>
                           ),
                         ),
                         const SizedBox(height: 32),
-                        
-                        // App Name
+
                         const Text(
                           AppConstants.appName,
                           style: TextStyle(
@@ -132,8 +120,7 @@ class _SplashScreenState extends State<SplashScreen>
                           ),
                         ),
                         const SizedBox(height: 8),
-                        
-                        // Tagline
+
                         Text(
                           'Organize your tasks efficiently',
                           style: TextStyle(
@@ -142,8 +129,7 @@ class _SplashScreenState extends State<SplashScreen>
                           ),
                         ),
                         const SizedBox(height: 48),
-                        
-                        // Loading indicator
+
                         const CircularProgressIndicator(
                           valueColor: AlwaysStoppedAnimation<Color>(
                             Colors.white,

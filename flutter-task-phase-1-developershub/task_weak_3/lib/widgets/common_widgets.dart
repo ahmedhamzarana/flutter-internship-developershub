@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-/// LoadingWidget - Reusable loading indicator
 class LoadingWidget extends StatelessWidget {
   final String? message;
   final double size;
@@ -37,7 +36,6 @@ class LoadingWidget extends StatelessWidget {
   }
 }
 
-/// EmptyStateWidget - Reusable empty state display
 class EmptyStateWidget extends StatelessWidget {
   final IconData icon;
   final String title;
@@ -57,7 +55,7 @@ class EmptyStateWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    
+
     return Center(
       child: Padding(
         padding: const EdgeInsets.all(32),
@@ -102,7 +100,6 @@ class EmptyStateWidget extends StatelessWidget {
   }
 }
 
-/// ErrorStateWidget - Reusable error state display
 class ErrorStateWidget extends StatelessWidget {
   final String message;
   final VoidCallback? onRetry;
@@ -149,7 +146,6 @@ class ErrorStateWidget extends StatelessWidget {
   }
 }
 
-/// NoInternetWidget - Display when no internet connection
 class NoInternetWidget extends StatelessWidget {
   final VoidCallback? onRetry;
 

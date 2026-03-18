@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import '../models/task_model.dart';
 
-/// TaskCard - Displays a single task with all its details
 class TaskCard extends StatelessWidget {
   final TaskModel task;
   final VoidCallback? onTap;
@@ -29,8 +28,8 @@ class TaskCard extends StatelessWidget {
 
     return Card(
       elevation: 2,
-      shadowColor: isOverdue 
-          ? Colors.red.withValues(alpha: 0.3) 
+      shadowColor: isOverdue
+          ? Colors.red.withValues(alpha: 0.3)
           : Colors.grey.withValues(alpha: 0.2),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(16),
@@ -61,7 +60,6 @@ class TaskCard extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Header: Priority badge + Status
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -71,22 +69,20 @@ class TaskCard extends StatelessWidget {
               ),
               const SizedBox(height: 12),
 
-              // Title
               Text(
                 task.title,
                 style: theme.textTheme.titleMedium?.copyWith(
                   fontWeight: FontWeight.bold,
                   decoration: isCompleted ? TextDecoration.lineThrough : null,
-                  color: isCompleted 
-                      ? Colors.grey 
-                      : isOverdue 
-                          ? Colors.red.shade700 
+                  color: isCompleted
+                      ? Colors.grey
+                      : isOverdue
+                          ? Colors.red.shade700
                           : Colors.black87,
                 ),
               ),
               const SizedBox(height: 4),
 
-              // Description (if exists)
               if (task.description.isNotEmpty)
                 Text(
                   task.description,
@@ -99,7 +95,6 @@ class TaskCard extends StatelessWidget {
                 ),
               const SizedBox(height: 12),
 
-              // Date and Time
               Row(
                 children: [
                   _buildDateTimeChip(
@@ -117,7 +112,6 @@ class TaskCard extends StatelessWidget {
               ),
               const SizedBox(height: 12),
 
-              // Actions
               if (showActions) _buildActions(context, isCompleted),
             ],
           ),
@@ -245,11 +239,10 @@ class TaskCard extends StatelessWidget {
 
   Widget _buildActions(BuildContext context, bool isCompleted) {
     final theme = Theme.of(context);
-    
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
-        // Status toggle button
         if (onStatusChange != null)
           IconButton(
             onPressed: () => onStatusChange!(
@@ -261,8 +254,7 @@ class TaskCard extends StatelessWidget {
             color: isCompleted ? Colors.orange : Colors.green,
             tooltip: isCompleted ? 'Mark as pending' : 'Mark as complete',
           ),
-        
-        // Edit button
+
         if (onEdit != null)
           IconButton(
             onPressed: onEdit,
@@ -270,8 +262,7 @@ class TaskCard extends StatelessWidget {
             color: theme.colorScheme.primary,
             tooltip: 'Edit task',
           ),
-        
-        // Delete button
+
         if (onDelete != null)
           IconButton(
             onPressed: onDelete,

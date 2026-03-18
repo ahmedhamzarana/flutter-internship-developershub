@@ -9,7 +9,6 @@ import '../../widgets/common_widgets.dart';
 import '../../widgets/custom_button.dart';
 import '../../models/task_model.dart';
 
-/// HomeScreen - Main screen displaying all tasks with filtering and search
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
@@ -23,7 +22,6 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    // Initialize tasks after build is complete
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _initializeTasks();
     });
@@ -36,10 +34,9 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void _initializeTasks() {
-    // Use WidgetsBinding to ensure we're not in build phase
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (!mounted) return;
-      
+
       final authProvider = Provider.of<AuthProvider>(context, listen: false);
       final taskProvider = Provider.of<TaskProvider>(context, listen: false);
 
@@ -89,13 +86,11 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
       actions: [
-        // Search button
         IconButton(
           icon: const Icon(Icons.search, color: Colors.white),
           onPressed: () => _showSearchDialog(),
           tooltip: 'Search tasks',
         ),
-        // Logout button
         IconButton(
           icon: const Icon(Icons.logout, color: Colors.white),
           onPressed: _handleLogout,
@@ -118,13 +113,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
     return Column(
       children: [
-        // Stats Cards
         _buildStatsCards(taskProvider),
-        
-        // Filter Chips
         _buildFilterChips(taskProvider),
-        
-        // Task List
         Expanded(
           child: _buildTaskList(taskProvider),
         ),
@@ -259,7 +249,7 @@ class _HomeScreenState extends State<HomeScreen> {
     int? showCount,
   }) {
     final isSelected = currentFilter == filter;
-    
+
     return FilterChip(
       label: Row(
         mainAxisSize: MainAxisSize.min,
@@ -350,7 +340,6 @@ class _HomeScreenState extends State<HomeScreen> {
       AppRoutes.task,
       arguments: {'taskId': null, 'existingTask': null},
     ).then((_) {
-      // Refresh tasks when returning from add task screen
       final authProvider = Provider.of<AuthProvider>(context, listen: false);
       final taskProvider = Provider.of<TaskProvider>(context, listen: false);
       if (authProvider.userId != null) {
@@ -365,7 +354,6 @@ class _HomeScreenState extends State<HomeScreen> {
       AppRoutes.task,
       arguments: {'taskId': task.id, 'existingTask': task},
     ).then((_) {
-      // Refresh tasks when returning from edit task screen
       final authProvider = Provider.of<AuthProvider>(context, listen: false);
       final taskProvider = Provider.of<TaskProvider>(context, listen: false);
       if (authProvider.userId != null) {
@@ -390,10 +378,10 @@ class _HomeScreenState extends State<HomeScreen> {
             variant: ButtonVariant.danger,
             onPressed: () async {
               Navigator.pop(context);
-              
+
               final taskProvider = Provider.of<TaskProvider>(context, listen: false);
               final success = await taskProvider.deleteTask(task.id);
-              
+
               if (success && mounted) {
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(
@@ -411,9 +399,9 @@ class _HomeScreenState extends State<HomeScreen> {
 
   void _handleStatusChange(TaskModel task, TaskStatus newStatus) async {
     final taskProvider = Provider.of<TaskProvider>(context, listen: false);
-    
+
     await taskProvider.toggleTaskStatus(task.id, newStatus);
-    
+
     if (mounted) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
@@ -512,10 +500,10 @@ class _HomeScreenState extends State<HomeScreen> {
     if (confirm == true && mounted) {
       final authProvider = Provider.of<AuthProvider>(context, listen: false);
       await authProvider.logout();
-      
+
       if (mounted) {
         NavigationHelper.goToLogin(context);
-        
+
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
             content: Text('Logged out successfully'),

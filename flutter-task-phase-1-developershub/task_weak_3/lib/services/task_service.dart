@@ -1,37 +1,31 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../models/task_model.dart';
 
-/// TaskService - Handles all Firebase Firestore operations for tasks
 class TaskService {
-  // Singleton instance
   static final TaskService _instance = TaskService._internal();
-  
+
   factory TaskService() {
     return _instance;
   }
-  
+
   TaskService._internal();
 
-  // Firestore instance
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-  // Collection name
   static const String _tasksCollection = 'tasks';
 
-  /// Add a new task
-  /// Returns the task ID if successful
-Future<String> addTask(TaskModel task, String userId) async {
-  try {
-    final docRef = await _firestore.collection(_tasksCollection).add({
-      ...task.toMap(),
-      'userId': userId,  // Ye line zaroori hai
-    });
-    return docRef.id;
-  } catch (e) {
-    throw Exception('Failed to add task: $e');
+  Future<String> addTask(TaskModel task, String userId) async {
+    try {
+      final docRef = await _firestore.collection(_tasksCollection).add({
+        ...task.toMap(),
+        'userId': userId,
+      });
+      return docRef.id;
+    } catch (e) {
+      throw Exception('Failed to add task: $e');
+    }
   }
-}
-  /// Get a single task by ID
+
   Future<TaskModel?> getTask(String taskId) async {
     try {
       final doc = await _firestore.collection(_tasksCollection).doc(taskId).get();
@@ -44,7 +38,6 @@ Future<String> addTask(TaskModel task, String userId) async {
     }
   }
 
-  /// Get all tasks for a user
   Future<List<TaskModel>> getUserTasks(String userId) async {
     try {
       final snapshot = await _firestore
@@ -62,7 +55,6 @@ Future<String> addTask(TaskModel task, String userId) async {
     }
   }
 
-  /// Get real-time stream of user tasks
   Stream<List<TaskModel>> getTasksStream(String userId) {
     return _firestore
         .collection(_tasksCollection)
@@ -77,7 +69,6 @@ Future<String> addTask(TaskModel task, String userId) async {
     });
   }
 
-  /// Get pending tasks stream
   Stream<List<TaskModel>> getPendingTasksStream(String userId) {
     return _firestore
         .collection(_tasksCollection)
@@ -92,7 +83,6 @@ Future<String> addTask(TaskModel task, String userId) async {
     });
   }
 
-  /// Get completed tasks stream
   Stream<List<TaskModel>> getCompletedTasksStream(String userId) {
     return _firestore
         .collection(_tasksCollection)
@@ -107,7 +97,6 @@ Future<String> addTask(TaskModel task, String userId) async {
     });
   }
 
-  /// Update a task
   Future<void> updateTask(TaskModel task) async {
     try {
       await _firestore
@@ -119,7 +108,6 @@ Future<String> addTask(TaskModel task, String userId) async {
     }
   }
 
-  /// Delete a task
   Future<void> deleteTask(String taskId) async {
     try {
       await _firestore.collection(_tasksCollection).doc(taskId).delete();
@@ -128,7 +116,6 @@ Future<String> addTask(TaskModel task, String userId) async {
     }
   }
 
-  /// Update task status
   Future<void> updateTaskStatus(String taskId, TaskStatus status) async {
     try {
       await _firestore.collection(_tasksCollection).doc(taskId).update({
@@ -140,7 +127,6 @@ Future<String> addTask(TaskModel task, String userId) async {
     }
   }
 
-  /// Update task priority
   Future<void> updateTaskPriority(String taskId, TaskPriority priority) async {
     try {
       await _firestore.collection(_tasksCollection).doc(taskId).update({
@@ -152,7 +138,6 @@ Future<String> addTask(TaskModel task, String userId) async {
     }
   }
 
-  /// Get task count by status
   Future<Map<String, int>> getTaskCounts(String userId) async {
     try {
       final snapshot = await _firestore
@@ -161,11 +146,11 @@ Future<String> addTask(TaskModel task, String userId) async {
           .get();
 
       int total = snapshot.docs.length;
-      int pending = snapshot.docs.where((doc) => 
+      int pending = snapshot.docs.where((doc) =>
         doc.data()['status'] == TaskStatus.pending.name).length;
-      int completed = snapshot.docs.where((doc) => 
+      int completed = snapshot.docs.where((doc) =>
         doc.data()['status'] == TaskStatus.completed.name).length;
-      int inProgress = snapshot.docs.where((doc) => 
+      int inProgress = snapshot.docs.where((doc) =>
         doc.data()['status'] == TaskStatus.inProgress.name).length;
 
       return {
@@ -179,13 +164,11 @@ Future<String> addTask(TaskModel task, String userId) async {
     }
   }
 
-  /// Search tasks by title
   Stream<List<TaskModel>> searchTasks(String userId, String query) {
     if (query.isEmpty) {
       return getTasksStream(userId);
     }
 
-    // Note: For production, use Algolia or ElasticSearch for better search
     return _firestore
         .collection(_tasksCollection)
         .where('userId', isEqualTo: userId)
@@ -194,7 +177,7 @@ Future<String> addTask(TaskModel task, String userId) async {
         .map((snapshot) {
       return snapshot.docs
           .map((doc) => TaskModel.fromMap(doc.data(), doc.id))
-          .where((task) => 
+          .where((task) =>
             task.title.toLowerCase().contains(query.toLowerCase()) ||
             task.description.toLowerCase().contains(query.toLowerCase()))
           .toList();

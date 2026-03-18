@@ -2,219 +2,127 @@
 
 A complete, production-ready Flutter task management application with Firebase backend, Provider state management, and secure local storage. Built with best practices for scalability and maintainability.
 
-## 🚀 Features
+## Features
 
 ### Authentication
-- ✅ User Registration with email/password
-- ✅ User Login with email/password  
-- ✅ Password Reset functionality
-- ✅ Secure session persistence (Flutter Secure Storage)
-- ✅ Auto-login on app restart
-- ✅ Logout functionality
+- User Registration with email/password
+- User Login with email/password
+- Password Reset functionality
+- Secure session persistence using Flutter Secure Storage
+- Auto-login on app restart
+- Logout functionality
 
 ### Task Management
-- ✅ Add new tasks with title, description, date & time
-- ✅ Edit existing tasks
-- ✅ Delete tasks with confirmation
-- ✅ Mark tasks as complete/pending/in-progress
-- ✅ Task priority levels (Low, Medium, High)
-- ✅ Task status tracking
-- ✅ Real-time task updates via Firebase
-- ✅ Task filtering (All, Pending, In Progress, Completed, Overdue)
-- ✅ Task search functionality
-- ✅ Overdue task detection
-- ✅ Task statistics dashboard
+- Add new tasks with title, description, date and time
+- Edit existing tasks
+- Delete tasks with confirmation
+- Mark tasks as complete, pending, or in-progress
+- Task priority levels: Low, Medium, High
+- Task status tracking
+- Real-time task updates via Firebase
+- Task filtering: All, Pending, In Progress, Completed, Overdue
+- Task search functionality
+- Overdue task detection
+- Task statistics dashboard
 
 ### UI/UX
-- ✅ Material Design 3 UI
-- ✅ Responsive layouts
-- ✅ Animated splash screen
-- ✅ Loading states
-- ✅ Error handling with user-friendly messages
-- ✅ Empty states
-- ✅ Success/Error snackbars
-- ✅ Confirmation dialogs
-- ✅ Custom reusable widgets
-- ✅ Consistent theme and styling
+- Material Design 3 UI
+- Responsive layouts
+- Animated splash screen
+- Loading states
+- Error handling with user-friendly messages
+- Empty states
+- Success and Error snackbars
+- Confirmation dialogs
+- Custom reusable widgets
+- Consistent theme and styling
 
-## 📁 Project Structure
+## Project Structure
 
-```
-lib/
-├── main.dart                     # App entry point with Firebase & Provider setup
-├── firebase_options.dart         # Auto-generated Firebase configuration
-├── models/
-│   ├── user_model.dart           # User data model with Firestore serialization
-│   └── task_model.dart           # Task model with TaskPriority & TaskStatus enums
-├── services/
-│   ├── auth_service.dart         # Firebase Authentication service (singleton)
-│   ├── task_service.dart         # Firebase Firestore service for tasks
-│   └── storage_service.dart      # Flutter Secure Storage wrapper
-├── providers/
-│   ├── auth_provider.dart        # Authentication state management
-│   ├── task_provider.dart        # Tasks state management with real-time updates
-│   └── home_provider.dart        # Home screen state management
-├── screens/
-│   ├── splash_screen.dart        # Animated splash with auth check
-│   ├── auth/
-│   │   ├── login_screen.dart     # Login screen with form validation
-│   │   └── register_screen.dart  # Registration screen
-│   ├── home_screen.dart          # Main task list with filters & search
-│   └── task_screen.dart          # Add/Edit task screen with date/time pickers
-├── widgets/
-│   ├── custom_button.dart        # Reusable button with variants
-│   ├── custom_text_field.dart    # Reusable text field & dropdown
-│   ├── task_card.dart            # Task card component
-│   └── common_widgets.dart       # Loading, Empty, Error state widgets
-├── components/
-│   └── task_card.dart            # Alternative task card component
-└── utils/
-    ├── app_routes.dart           # Route configuration & navigation helper
-    ├── validators.dart           # Form validation functions
-    └── constants.dart            # App constants, colors, text styles, spacing
-```
+The project follows a clean architecture pattern:
 
-## 🛠️ Dependencies
+- **main.dart** - App entry point with Firebase and Provider setup
+- **firebase_options.dart** - Auto-generated Firebase configuration (exclude from version control)
+- **models/** - Data models for User and Task entities
+- **services/** - Firebase Authentication, Firestore, and Secure Storage services
+- **providers/** - State management using Provider pattern
+- **screens/** - All UI screens including auth, home, and task screens
+- **widgets/** - Reusable UI components
+- **components/** - Additional UI components
+- **utils/** - App routes, form validators, and constants
 
-```yaml
-dependencies:
-  flutter:
-    sdk: flutter
+## Prerequisites
 
-  # Firebase
-  firebase_core: ^4.5.0           # Firebase initialization
-  cloud_firestore: ^5.4.4         # Firestore database
-  firebase_auth: ^6.2.0           # Firebase Authentication
+Before getting started, ensure you have the following installed:
 
-  # State Management
-  provider: ^6.1.4                # Provider pattern (ChangeNotifier)
+1. Flutter SDK (latest stable version)
+2. Dart SDK
+3. Android Studio or VS Code with Flutter extensions
+4. Git for version control
+5. A Google account for Firebase
 
-  # Storage
-  flutter_secure_storage: ^10.0.0 # Secure local storage
+## Setup Instructions
 
-  # Utilities
-  uuid: ^4.5.1                    # Unique ID generation
-  intl: ^0.20.2                   # Date/time formatting
-```
+### Step 1: Clone and Install Dependencies
 
-## 📋 Firebase Setup
+Clone the repository and navigate to the project directory. Run the Flutter package manager to install all dependencies.
 
-### Step 1: Create Firebase Project
+### Step 2: Firebase Project Setup
 
-1. Go to [Firebase Console](https://console.firebase.google.com/)
-2. Click **"Add project"**
-3. Enter project name (e.g., "Task Manager")
-4. Disable Google Analytics (optional)
-5. Click **Create project**
+1. Visit the Firebase Console website
+2. Create a new Firebase project or select an existing one
+3. Give your project a name and follow the setup wizard
 
-### Step 2: Add Android App
+### Step 3: Register Your App with Firebase
 
-1. Click **Android icon** to add Android app
-2. Package name: `com.example.task_weak_3`
-3. Download `google-services.json`
-4. Place in: `android/app/google-services.json`
+For Android:
+- Register your Android app with your project's package name
+- Download the configuration file for Android
+- Place the configuration file in the Android app directory
 
-5. In `android/build.gradle`:
-```gradle
-buildscript {
-  dependencies {
-    classpath 'com.google.gms:google-services:4.4.0'
-  }
-}
-```
-
-6. In `android/app/build.gradle`:
-```gradle
-apply plugin: 'com.google.gms.google-services'
-```
-
-### Step 3: Add iOS App (Optional)
-
-1. Click **iOS icon** to add iOS app
-2. Bundle ID: `com.example.taskWeak3`
-3. Download `GoogleService-Info.plist`
-4. Place in: `ios/Runner/GoogleService-Info.plist`
+For iOS:
+- Register your iOS app with your project's bundle identifier
+- Download the configuration file for iOS
+- Place the configuration file in the iOS Runner directory
 
 ### Step 4: Enable Firebase Services
 
-#### Firestore Database
-1. Go to **Build** → **Firestore Database**
-2. Click **Create database**
-3. Start in **test mode** (for development)
-4. Choose location
+Firestore Database:
+- Navigate to the Firestore section in Firebase Console
+- Create a new database
+- Choose test mode for development (update rules for production)
+- Select your preferred location
 
-#### Authentication
-1. Go to **Build** → **Authentication**
-2. Click **Get started**
-3. Enable **Email/Password** provider
+Authentication:
+- Navigate to the Authentication section
+- Enable Email/Password sign-in method
 
-### Step 5: Firestore Security Rules
+### Step 5: Configure Firestore Security Rules
 
-For production, use these rules in Firebase Console → Firestore → Rules:
+For production environments, configure security rules to ensure users can only access their own data. Set up rules for the users collection and tasks collection with appropriate read and write permissions.
 
-```javascript
-rules_version = '2';
-service cloud.firestore {
-  match /databases/{database}/documents {
-    // Users collection
-    match /users/{userId} {
-      allow read, write: if request.auth != null && request.auth.uid == userId;
-    }
+### Step 6: Run the Application
 
-    // Tasks collection
-    match /tasks/{taskId} {
-      allow read: if request.auth != null &&
-                     resource.data.userId == request.auth.uid;
-      allow create: if request.auth != null &&
-                       request.resource.data.userId == request.auth.uid;
-      allow update, delete: if request.auth != null &&
-                               resource.data.userId == request.auth.uid;
-    }
-  }
-}
-```
+Use the Flutter CLI to run the application on your preferred device or emulator.
 
-## 🏃 Getting Started
+### Step 7: Build for Production
 
-### 1. Install Dependencies
-```bash
-flutter pub get
-```
+Build APK for Android or IPA for iOS using the Flutter build commands with release mode.
 
-### 2. Run the App
-```bash
-flutter run
-```
+## Security Features
 
-### 3. Build for Production
-```bash
-# Android
-flutter build apk --release
+1. **Secure Storage** - Uses Flutter Secure Storage for tokens and user data
+2. **Firebase Auth** - Industry-standard authentication
+3. **Firestore Rules** - User-specific data access control
+4. **Password Validation** - Minimum character requirements
+5. **Session Management** - Auto-logout on token expiration
+6. **Form Validation** - Client-side validation for all inputs
 
-# iOS
-flutter build ios --release
-```
+## Testing
 
-## 🔐 Security Features
+Run the test suite using the Flutter test command. For coverage reports, use the coverage flag.
 
-1. **Secure Storage**: Uses Flutter Secure Storage for tokens and user data
-2. **Firebase Auth**: Industry-standard authentication
-3. **Firestore Rules**: User-specific data access control
-4. **Password Validation**: Minimum 6 characters with at least one letter
-5. **Session Management**: Auto-logout on token expiration
-6. **Form Validation**: Client-side validation for all inputs
-
-## 🧪 Testing
-
-```bash
-# Run tests
-flutter test
-
-# Run with coverage
-flutter test --coverage
-```
-
-## 📱 Screens
+## Screens Overview
 
 | Screen | Description |
 |--------|-------------|
@@ -224,126 +132,66 @@ flutter test --coverage
 | Home Screen | Task list with filters, search, and statistics |
 | Task Screen | Add/Edit task with date/time pickers and priority selector |
 
-## 🐛 Troubleshooting
+## Troubleshooting
 
 ### Firebase Initialization Error
-```
-Make sure google-services.json is in android/app/
-Make sure Google Services plugin is applied
-Run: flutter clean && flutter pub get
-```
+- Ensure the configuration file is placed in the correct directory
+- Verify the Firebase Services plugin is properly configured
+- Clean and rebuild the project
 
 ### Build Errors
-```bash
-flutter clean
-flutter pub get
-flutter run
-```
+- Run clean command
+- Reinstall dependencies
+- Rebuild the project
 
-### Auth Error
-```
-Make sure Email/Password is enabled in Firebase Console
-Check internet connection
-Verify firebase_options.dart is configured
-```
+### Authentication Error
+- Verify Email/Password authentication is enabled in Firebase Console
+- Check internet connectivity
+- Confirm Firebase configuration is correct
 
 ### Firestore Permission Error
-```
-Update Firestore rules in Firebase Console
-Use test mode for development
-```
+- Update Firestore security rules in Firebase Console
+- Use test mode for development purposes
 
-## 📝 Key Concepts
+## Key Concepts
 
 ### Provider Pattern
-Provider is a state management solution that uses InheritedWidget under the hood.
+Provider is a state management solution that uses InheritedWidget under the hood. It follows the observer pattern to notify widgets when data changes.
 
-```dart
-// Create provider
-class MyProvider extends ChangeNotifier {
-  int _count = 0;
-  int get count => _count;
+### Firebase Integration
+Firebase provides backend services including authentication, real-time database, and cloud storage. The app uses Firebase Auth for user management and Firestore for data persistence.
 
-  void increment() {
-    _count++;
-    notifyListeners();
-  }
-}
+### Secure Storage
+Sensitive data like authentication tokens are stored using Flutter Secure Storage, which encrypts data on both Android and iOS platforms.
 
-// Provide it
-MultiProvider(
-  providers: [
-    ChangeNotifierProvider(create: (_) => MyProvider()),
-  ],
-  child: MyApp(),
-)
+## Future Enhancements
 
-// Consume it
-Consumer<MyProvider>(
-  builder: (context, provider, child) {
-    return Text('${provider.count}');
-  },
-)
-```
+- Task categories and tags
+- Task attachments
+- Push notifications
+- Dark mode theme
+- User profile editing
+- Task comments and collaboration
+- Task sharing
+- Recurring tasks
+- Task templates
+- Analytics dashboard
+- Offline support
+- Cloud backup and sync
 
-### StatefulWidget Lifecycle
-```dart
-class _MyState extends State<MyWidget> {
-  @override
-  void initState() {
-    super.initState();
-    // Initialize data
-  }
+## Dependencies
 
-  @override
-  void dispose() {
-    // Clean up controllers, subscriptions
-    super.dispose();
-  }
+The project uses the following main packages:
+- Firebase Core, Firestore, and Auth for backend services
+- Provider for state management
+- Flutter Secure Storage for local secure storage
+- UUID for unique ID generation
+- Intl for date and time formatting
 
-  @override
-  Widget build(BuildContext context) {
-    return Container();
-  }
-}
-```
-
-### Singleton Pattern (Services)
-```dart
-class AuthService {
-  static final AuthService _instance = AuthService._internal();
-  
-  factory AuthService() {
-    return _instance;
-  }
-  
-  AuthService._internal();
-}
-```
-
-## 🚀 Future Enhancements
-
-- [ ] Task categories/tags
-- [ ] Task attachments
-- [ ] Push notifications
-- [ ] Dark mode theme
-- [ ] User profile editing
-- [ ] Task comments
-- [ ] Task sharing
-- [ ] Recurring tasks
-- [ ] Task templates
-- [ ] Analytics dashboard
-- [ ] Offline support
-- [ ] Cloud backup
-
-## 📄 License
+## License
 
 This project is for educational purposes.
 
-## 👨‍💻 Author
-
-Task Manager - Built with Flutter, Firebase, and Provider
-
 ---
 
-**Happy Coding! 🎉**
+**Happy Coding!**

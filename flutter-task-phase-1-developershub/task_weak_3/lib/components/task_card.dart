@@ -44,7 +44,6 @@ class TaskCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          /// Top Row: Time + Status
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -87,7 +86,6 @@ class TaskCard extends StatelessWidget {
 
           const SizedBox(height: 6),
 
-          /// Task Title
           Text(
             title,
             style: const TextStyle(
@@ -101,7 +99,6 @@ class TaskCard extends StatelessWidget {
 
           const SizedBox(height: 6),
 
-          /// Buttons Row
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [

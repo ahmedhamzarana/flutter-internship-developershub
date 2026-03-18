@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-/// CustomTextField - Reusable text field widget with validation
 class CustomTextField extends StatelessWidget {
   final String label;
   final String? hint;
@@ -44,11 +43,10 @@ class CustomTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        // Label
         Text(
           label,
           style: theme.textTheme.labelLarge?.copyWith(
@@ -57,8 +55,7 @@ class CustomTextField extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 8),
-        
-        // Text Field
+
         TextFormField(
           controller: controller,
           initialValue: initialValue,
@@ -78,8 +75,8 @@ class CustomTextField extends StatelessWidget {
             prefixIcon: prefixIcon,
             suffixIcon: suffixIcon,
             filled: true,
-            fillColor: enabled 
-                ? theme.colorScheme.surface 
+            fillColor: enabled
+                ? theme.colorScheme.surface
                 : theme.colorScheme.surface.withValues(alpha: 0.5),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
@@ -126,7 +123,6 @@ class CustomTextField extends StatelessWidget {
   }
 }
 
-/// CustomDropdown - Reusable dropdown widget
 class CustomDropdown<T> extends StatelessWidget {
   final String label;
   final T? value;
@@ -150,11 +146,10 @@ class CustomDropdown<T> extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        // Label
         Text(
           label,
           style: theme.textTheme.labelLarge?.copyWith(
@@ -163,14 +158,13 @@ class CustomDropdown<T> extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 8),
-        
-        // Dropdown
+
         InputDecorator(
           decoration: InputDecoration(
             hintText: hint,
             filled: true,
-            fillColor: enabled 
-                ? theme.colorScheme.surface 
+            fillColor: enabled
+                ? theme.colorScheme.surface
                 : theme.colorScheme.surface.withValues(alpha: 0.5),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),

@@ -5,7 +5,6 @@
 *.swp
 .DS_Store
 .atom/
-.build/
 .buildlog/
 .history
 .svn/
@@ -18,9 +17,7 @@ migrate_working_dir/
 *.iws
 .idea/
 
-# The .vscode folder contains launch configuration and tasks you configure in
-# VS Code which you may wish to be included in version control, so this line
-# is commented out by default.
+# VS Code (uncomment to include in version control)
 #.vscode/
 
 # Flutter/Dart/Pub related
@@ -43,3 +40,22 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+# Firebase Configuration Files
+google-services.json
+GoogleService-Info.plist
+firebase_options.dart
+
+# Environment and Secrets
+.env
+.env.*
+*.env
+.secrets
+firebase.json
+firestore.rules
+firestore.indexes.json
+
+# Platform-specific Firebase configs
+/android/**/google-services.json
+/ios/**/GoogleService-Info.plist
+/macos/**/GoogleService-Info.plist

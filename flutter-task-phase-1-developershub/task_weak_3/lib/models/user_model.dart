@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-/// User Model - Represents a user in the application
 class UserModel {
   final String id;
   final String name;
@@ -14,7 +13,6 @@ class UserModel {
     required this.createdAt,
   });
 
-  /// Create UserModel from Firestore document
   factory UserModel.fromMap(Map<String, dynamic> data, String documentId) {
     return UserModel(
       id: documentId,
@@ -24,7 +22,6 @@ class UserModel {
     );
   }
 
-  /// Convert UserModel to Firestore format
   Map<String, dynamic> toMap() {
     return {
       'name': name,
@@ -33,7 +30,6 @@ class UserModel {
     };
   }
 
-  /// Create a copy with updated values
   UserModel copyWith({
     String? id,
     String? name,

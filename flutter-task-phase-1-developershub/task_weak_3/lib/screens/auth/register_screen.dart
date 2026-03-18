@@ -7,7 +7,6 @@ import '../../utils/constants.dart';
 import '../../widgets/custom_button.dart';
 import '../../widgets/custom_text_field.dart';
 
-/// RegisterScreen - Allows users to create a new account
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
 
@@ -21,7 +20,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
-  
+
   bool _obscurePassword = true;
   bool _obscureConfirmPassword = true;
 
@@ -56,16 +55,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 const SizedBox(height: AppSpacing.sm),
-                
-                // Header
+
                 _buildHeader(),
                 const SizedBox(height: AppSpacing.xxl),
-                
-                // Error Message
+
                 _buildErrorMessage(),
                 const SizedBox(height: AppSpacing.md),
-                
-                // Name Field
+
                 CustomTextField(
                   label: 'Full Name',
                   hint: 'Enter your name',
@@ -75,8 +71,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   textInputAction: TextInputAction.next,
                 ),
                 const SizedBox(height: AppSpacing.md),
-                
-                // Email Field
+
                 CustomTextField(
                   label: 'Email',
                   hint: 'Enter your email',
@@ -87,8 +82,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   textInputAction: TextInputAction.next,
                 ),
                 const SizedBox(height: AppSpacing.md),
-                
-                // Password Field
+
                 CustomTextField(
                   label: 'Password',
                   hint: 'Enter your password',
@@ -111,8 +105,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   textInputAction: TextInputAction.next,
                 ),
                 const SizedBox(height: AppSpacing.md),
-                
-                // Confirm Password Field
+
                 CustomTextField(
                   label: 'Confirm Password',
                   hint: 'Confirm your password',
@@ -138,8 +131,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   textInputAction: TextInputAction.done,
                 ),
                 const SizedBox(height: AppSpacing.lg),
-                
-                // Register Button
+
                 Consumer<AuthProvider>(
                   builder: (context, authProvider, child) {
                     return CustomButton(
@@ -152,8 +144,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   },
                 ),
                 const SizedBox(height: AppSpacing.lg),
-                
-                // Login Link
+
                 _buildLoginLink(),
               ],
             ),
@@ -200,7 +191,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         if (authProvider.errorMessage == null) {
           return const SizedBox.shrink();
         }
-        
+
         return Container(
           padding: const EdgeInsets.all(AppSpacing.md),
           decoration: BoxDecoration(
@@ -267,13 +258,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
     );
 
     if (success && mounted) {
-      // Clear form
       _formKey.currentState!.reset();
-      
-      // Navigate to home
+
       NavigationHelper.goToHome(context);
-      
-      // Show success message
+
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(

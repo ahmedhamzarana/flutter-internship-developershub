@@ -8,23 +8,18 @@ import 'utils/app_routes.dart';
 import 'utils/constants.dart';
 
 void main() async {
-  // Ensure Flutter bindings are initialized
   WidgetsFlutterBinding.ensureInitialized();
 
-  // Initialize Firebase
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  // Run the app
   runApp(
     MultiProvider(
       providers: [
-        // AuthProvider - Manages authentication state
         ChangeNotifierProvider(
           create: (_) => AuthProvider(),
         ),
-        // TaskProvider - Manages tasks state
         ChangeNotifierProvider(
           create: (_) => TaskProvider(),
         ),
@@ -34,32 +29,28 @@ void main() async {
   );
 }
 
-/// MyApp - Root widget of the application
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return 
+    return
       MaterialApp(
         title: AppConstants.appName,
         debugShowCheckedModeBanner: false,
-        
-        // Theme configuration
+
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(
             seedColor: AppColors.primary,
             brightness: Brightness.light,
           ),
           useMaterial3: true,
-          
-          // AppBar theme
+
           appBarTheme: const AppBarTheme(
             centerTitle: true,
             elevation: 0,
           ),
-          
-          // Input decoration theme
+
           inputDecorationTheme: InputDecorationTheme(
             filled: true,
             fillColor: Colors.white,
@@ -88,8 +79,7 @@ class MyApp extends StatelessWidget {
               vertical: 16,
             ),
           ),
-          
-          // Elevated button theme
+
           elevatedButtonTheme: ElevatedButtonThemeData(
             style: ElevatedButton.styleFrom(
               backgroundColor: AppColors.primary,
@@ -104,8 +94,7 @@ class MyApp extends StatelessWidget {
               elevation: 2,
             ),
           ),
-          
-          // Card theme
+
           cardTheme: CardThemeData(
             elevation: 2,
             shape: RoundedRectangleBorder(
@@ -113,16 +102,14 @@ class MyApp extends StatelessWidget {
             ),
             color: Colors.white,
           ),
-          
-          // Floating action button theme
+
           floatingActionButtonTheme: const FloatingActionButtonThemeData(
             elevation: 4,
             backgroundColor: AppColors.primary,
             foregroundColor: Colors.white,
           ),
         ),
-        
-        // Routes configuration
+
         initialRoute: AppRoutes.splash,
         routes: AppRoutes.routes,
         onGenerateRoute: (settings) => AppRoutes.onGenerateRoute(settings),

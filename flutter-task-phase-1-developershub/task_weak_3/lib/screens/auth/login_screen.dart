@@ -7,7 +7,6 @@ import '../../utils/constants.dart';
 import '../../widgets/custom_button.dart';
 import '../../widgets/custom_text_field.dart';
 
-/// LoginScreen - Allows users to login with email and password
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
 
@@ -19,7 +18,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
-  
+
   bool _obscurePassword = true;
 
   @override
@@ -41,16 +40,13 @@ class _LoginScreenState extends State<LoginScreen> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 const SizedBox(height: AppSpacing.xl),
-                
-                // Logo and Title
+
                 _buildHeader(),
                 const SizedBox(height: AppSpacing.xxl),
-                
-                // Error Message
+
                 _buildErrorMessage(),
                 const SizedBox(height: AppSpacing.md),
-                
-                // Email Field
+
                 CustomTextField(
                   label: 'Email',
                   hint: 'Enter your email',
@@ -61,8 +57,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   textInputAction: TextInputAction.next,
                 ),
                 const SizedBox(height: AppSpacing.md),
-                
-                // Password Field
+
                 CustomTextField(
                   label: 'Password',
                   hint: 'Enter your password',
@@ -85,8 +80,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   textInputAction: TextInputAction.done,
                 ),
                 const SizedBox(height: AppSpacing.sm),
-                
-                // Forgot Password
+
                 Align(
                   alignment: Alignment.centerRight,
                   child: TextButton(
@@ -95,8 +89,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
                 const SizedBox(height: AppSpacing.lg),
-                
-                // Login Button
+
                 Consumer<AuthProvider>(
                   builder: (context, authProvider, child) {
                     return CustomButton(
@@ -109,8 +102,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   },
                 ),
                 const SizedBox(height: AppSpacing.lg),
-                
-                // Register Link
+
                 _buildRegisterLink(),
               ],
             ),
@@ -157,7 +149,7 @@ class _LoginScreenState extends State<LoginScreen> {
         if (authProvider.errorMessage == null) {
           return const SizedBox.shrink();
         }
-        
+
         return Container(
           padding: const EdgeInsets.all(AppSpacing.md),
           decoration: BoxDecoration(
@@ -223,13 +215,10 @@ class _LoginScreenState extends State<LoginScreen> {
     );
 
     if (success && mounted) {
-      // Clear form
       _formKey.currentState!.reset();
-      
-      // Navigate to home
+
       NavigationHelper.goToHome(context);
-      
-      // Show success message
+
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
@@ -244,7 +233,7 @@ class _LoginScreenState extends State<LoginScreen> {
   void _showForgotPasswordDialog() {
     final emailController = TextEditingController();
     final formKey = GlobalKey<FormState>();
-    
+
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
@@ -286,7 +275,15 @@ class _LoginScreenState extends State<LoginScreen> {
                         );
                       }
                     } catch (e) {
-                      // Error is already shown in snackbar by provider
+                      if (mounted) {
+                        Navigator.pop(context);
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text('Password reset failed: $e'),
+                            backgroundColor: Colors.red,
+                          ),
+                        );
+                      }
                     }
                   }
                 },

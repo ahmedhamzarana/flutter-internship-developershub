@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-/// Task Model - Represents a task in the application
 class TaskModel {
   final String id;
   final String title;
@@ -26,7 +25,6 @@ class TaskModel {
     this.updatedAt,
   });
 
-  /// Create TaskModel from Firestore document
   factory TaskModel.fromMap(Map<String, dynamic> data, String documentId) {
     return TaskModel(
       id: documentId,
@@ -48,7 +46,6 @@ class TaskModel {
     );
   }
 
-  /// Convert TaskModel to Firestore format
   Map<String, dynamic> toMap() {
     return {
       'title': title,
@@ -63,7 +60,6 @@ class TaskModel {
     };
   }
 
-  /// Create a copy with updated values
   TaskModel copyWith({
     String? id,
     String? title,
@@ -90,7 +86,6 @@ class TaskModel {
     );
   }
 
-  /// Check if task is overdue
   bool get isOverdue {
     final now = DateTime.now();
     final dueDateTime = DateTime(
@@ -118,21 +113,18 @@ class TaskModel {
   int get hashCode => id.hashCode;
 }
 
-/// Task Priority Enum
 enum TaskPriority {
   low,
   medium,
   high,
 }
 
-/// Task Status Enum
 enum TaskStatus {
   pending,
   inProgress,
   completed,
 }
 
-/// Extension to get display color for priority
 extension TaskPriorityExtension on TaskPriority {
   String get displayName {
     switch (this) {
@@ -146,7 +138,6 @@ extension TaskPriorityExtension on TaskPriority {
   }
 }
 
-/// Extension to get display color for status
 extension TaskStatusExtension on TaskStatus {
   String get displayName {
     switch (this) {

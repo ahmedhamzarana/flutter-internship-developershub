@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-/// CustomButton - Reusable button widget with different variants
 class CustomButton extends StatelessWidget {
   final String text;
   final VoidCallback? onPressed;
@@ -24,11 +23,10 @@ class CustomButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    
-    // Get colors based on variant
+
     Color backgroundColor;
     Color textColor;
-    
+
     switch (variant) {
       case ButtonVariant.primary:
         backgroundColor = theme.colorScheme.primary;
@@ -52,10 +50,9 @@ class CustomButton extends StatelessWidget {
         break;
     }
 
-    // Get padding based on size
     EdgeInsets padding;
     double fontSize;
-    
+
     switch (size) {
       case ButtonSize.small:
         padding = const EdgeInsets.symmetric(horizontal: 16, vertical: 8);
@@ -150,7 +147,6 @@ class CustomButton extends StatelessWidget {
   }
 }
 
-/// Button Variant Enum
 enum ButtonVariant {
   primary,
   secondary,
@@ -159,7 +155,6 @@ enum ButtonVariant {
   danger,
 }
 
-/// Button Size Enum
 enum ButtonSize {
   small,
   medium,
